@@ -153,7 +153,22 @@ const Product = () => {
         }
     }
     getProduct()
-  }, [id])
+  }, [id]) 
+
+  //UseEffect for query parameters 
+
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await publicRequest.get(`/products/find?name=${productName}`);
+        setProduct(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getProduct();
+  }, [productName]); // Replace 'id' with 'productName' as the dependency
+  
 
   const handleQuantity = (type) => {
     if(type === "dec"){

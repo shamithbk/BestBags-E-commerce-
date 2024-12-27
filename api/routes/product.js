@@ -46,6 +46,21 @@ router.get("/find/:id", async(req, res)=>{
         res.status(500).json(err)
     }
 })
+//Get Product by query parameters 
+router.get("/find", async (req, res) => {
+    const productName = req.query.name; // Retrieve the 'name' query parameter
+    try {
+      const product = await Product.findOne({ name: productName }); // Search by 'name'
+      if (product) {
+        res.status(200).json(product);
+      } else {
+        res.status(404).json({ message: "Product not found" }); // Handle cases where no product is found
+      }
+    } catch (err) {
+      res.status(500).json(err); // Handle server errors
+    }
+  });
+  
 
 //Get all products.
 router.get("/", async(req, res)=>{
